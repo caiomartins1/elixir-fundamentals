@@ -10,10 +10,29 @@ defmodule MyList do
 
   def map([], _func), do: []
   def map([head | tail], func), do: [func.(head) | map(tail, func)]
+
+  def reduce([], val, _), do: val
+
+  def reduce([head | tail], value, func) do
+    reduce(tail, func.(head, value), func)
+  end
+
+  def mapsum(list, func) do
+    list
+    |> map(func)
+    |> reduce(0, &(&1 + &2))
+  end
 end
 
 IO.puts(MyList.len([1, 2, 3]))
+
 IO.inspect(MyList.square([1, 2, 3]))
+
 IO.inspect(MyList.add([0, 1, 2]))
+
 IO.inspect(MyList.map([0, 1, 2], &(&1 + 1)))
 IO.inspect(MyList.map([0, 1, 2], &(&1 * &1)))
+
+IO.inspect(MyList.reduce([1, 2, 3, 4, 5], 0, &(&1 + &2)))
+
+IO.inspect(MyList.mapsum([0, 1, 2], &(&1 + 1)))
