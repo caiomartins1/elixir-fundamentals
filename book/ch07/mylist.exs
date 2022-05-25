@@ -26,6 +26,9 @@ defmodule MyList do
   def max_list(list) do
     reduce(list, List.first(list, 0), &max/2)
   end
+
+  def span(from, to) when from > to, do: []
+  def span(from, to) when from <= to, do: [from | span(from + 1, to)]
 end
 
 IO.puts(MyList.len([1, 2, 3]))
@@ -41,3 +44,5 @@ IO.inspect(MyList.reduce([1, 2, 3, 4, 5], 0, &(&1 + &2)))
 
 IO.inspect(MyList.mapsum([0, 1, 2], &(&1 + 1)))
 IO.inspect(MyList.max_list([0, 1, 20]))
+
+IO.inspect(MyList.span(0, 10))
